@@ -68,7 +68,7 @@ namespace MudBlazor
 
         [CascadingParameter] MudDrawerContainer DrawerContainer { get; set; }
 
-        [CascadingParameter]
+        [CascadingParameter(Name = nameof(RightToLeft))]
         bool RightToLeft
         {
             get => _rtl;

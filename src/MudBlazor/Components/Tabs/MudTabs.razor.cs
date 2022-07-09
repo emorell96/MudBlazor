@@ -33,7 +33,7 @@ namespace MudBlazor
 
         private IResizeObserver _resizeObserver;
 
-        [CascadingParameter] public bool RightToLeft { get; set; }
+        [CascadingParameter(Name = nameof(RightToLeft))] public bool RightToLeft { get; set; }
 
         [Inject] private IResizeObserverFactory _resizeObserverFactory { get; set; }
 

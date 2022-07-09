@@ -59,7 +59,7 @@ namespace MudBlazor
 
         #region Parameters
 
-        [CascadingParameter] public bool RightToLeft { get; set; }
+        [CascadingParameter(Name = nameof(RightToLeft))] public bool RightToLeft { get; set; }
 
         private bool _disableAlpha = false;
 

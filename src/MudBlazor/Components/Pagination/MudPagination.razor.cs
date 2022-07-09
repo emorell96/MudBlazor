@@ -230,7 +230,8 @@ namespace MudBlazor
         [Category(CategoryTypes.Pagination.Appearance)]
         public string LastIcon { get; set; } = Icons.Material.Filled.LastPage;
 
-        [CascadingParameter] public bool RightToLeft { get; set; }
+        [CascadingParameter(Name = nameof(RightToLeft))] 
+        public bool RightToLeft { get; set; }
 
         #endregion
 

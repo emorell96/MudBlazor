@@ -10,7 +10,7 @@ namespace MudBlazor
 {
     public partial class MudTimeline : MudBaseItemsControl<MudTimelineItem>
     {
-        [CascadingParameter] public bool RightToLeft { get; set; }
+        [CascadingParameter(Name = nameof(RightToLeft))] public bool RightToLeft { get; set; }
 
         /// <summary>
         /// Sets the orientation of the timeline and its timeline items.

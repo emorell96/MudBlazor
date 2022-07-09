@@ -38,9 +38,9 @@ For example:
 
 ### Pull Requests which introduce new components
 - MudBlazor supports RTL. It basically mirrors the ui horizontally for languages which are read right-to-left. See [RTL guide](https://rtlstyling.com/posts/rtl-styling)  for more information. Therefore every component should implement this functionality.
-If necessary include
+If necessary include (make sure to use the `Name` property, it must be `"RightToLeft"`, use nameof if possible to allow for easier refactoring if ever needed. `nameof(RightToLeft)` can be refactored using F2 on Visual Studio (if ever needed), `Name = "RightToLeft"` cannot).
 ```csharp
-[CascadingParameter] public bool RightToLeft {get; set;}
+[CascadingParameter(Name = nameof(RightToLeft))] public bool RightToLeft {get; set;}
 ```
 in your component and apply styles at component level.
 - You must add tests if your component contains any logic (CSS styling requires no testing)
