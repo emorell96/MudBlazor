@@ -46,7 +46,7 @@ namespace MudBlazor
             };
         }
 
-        [CascadingParameter] public bool RightToLeft { get; set; }
+        [CascadingParameter(Name = nameof(RightToLeft))] public bool RightToLeft { get; set; }
 
 
         /// <summary>

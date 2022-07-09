@@ -43,7 +43,7 @@ namespace MudBlazor
           .AddClass(Class)
         .Build();
 
-        [CascadingParameter]
+        [CascadingParameter(Name = nameof(RightToLeft))]
         public bool RightToLeft { get; set; }
 
         /// <summary>

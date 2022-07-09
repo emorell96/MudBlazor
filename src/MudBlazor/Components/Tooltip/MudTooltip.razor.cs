@@ -31,7 +31,7 @@ namespace MudBlazor
         private Origin _anchorOrigin;
         private Origin _transformOrigin;
 
-        [CascadingParameter]
+        [CascadingParameter(Name = nameof(RightToLeft))]
         public bool RightToLeft { get; set; }
 
         /// <summary>
