@@ -27,15 +27,13 @@ namespace MudBlazor
             set => SetDateAsync(value, true).AndForget();
         }
 
-        /// <summary>
-        /// If AutoClose is set to true and PickerActions are defined, selecting a day will close the MudDatePicker.
-        /// </summary>
-        [Parameter]
-        [Category(CategoryTypes.FormComponent.PickerBehavior)]
-        public bool AutoClose { get; set; }
-
         protected async Task SetDateAsync(DateTime? date, bool updateValue)
         {
+            if (_value != null && date != null && date.Value.Kind == DateTimeKind.Unspecified)
+            {
+                date = DateTime.SpecifyKind(date.Value, _value.Value.Kind);
+            }
+
             if (_value != date)
             {
                 Touched = true;
@@ -53,7 +51,8 @@ namespace MudBlazor
                     await SetTextAsync(Converter.Set(_value), false);
                 }
                 await DateChanged.InvokeAsync(_value);
-                BeginValidate();
+                await BeginValidateAsync();
+                FieldChanged(_value);
             }
         }
 
@@ -73,6 +72,7 @@ namespace MudBlazor
         protected override string GetDayClasses(int month, DateTime day)
         {
             var b = new CssBuilder("mud-day");
+            b.AddClass(AdditionalDateClassesFunc?.Invoke(day) ?? string.Empty);
             if (day < GetMonthStart(month) || day > GetMonthEnd(month))
                 return b.AddClass("mud-hidden").Build();
             if ((Date?.Date == day && _selectedDate == null) || _selectedDate?.Date == day)
@@ -153,7 +153,7 @@ namespace MudBlazor
 
         protected internal override async void Submit()
         {
-            if (ReadOnly)
+            if (GetReadOnlyState())
                 return;
             if (_selectedDate == null)
                 return;
@@ -204,7 +204,7 @@ namespace MudBlazor
         //To be completed on next PR
         protected internal override void HandleKeyDown(KeyboardEventArgs obj)
         {
-            if (Disabled || ReadOnly)
+            if (GetDisabledState() || GetReadOnlyState())
                 return;
             base.HandleKeyDown(obj);
             switch (obj.Key)
@@ -285,6 +285,8 @@ namespace MudBlazor
                     }
                     break;
             }
+
+            StateHasChanged();
         }
 
         private void ReturnDateBackUp()

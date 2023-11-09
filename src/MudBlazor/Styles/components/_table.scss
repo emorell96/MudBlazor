@@ -22,9 +22,7 @@
 
 .mud-table-root {
     width: 100%;
-    //display: table;
     border-spacing: 0;
-    border-collapse: collapse;
 
     & .mud-table-head {
         display: table-header-group;
@@ -44,9 +42,10 @@
         }
     }
 
-    & .mud-table-body:last-child {
-        & .mud-table-row:last-child {
-            & .mud-table-cell {
+    > .mud-table-body:last-child,
+    > .mud-table-foot:last-child {
+        > .mud-table-row:last-child {
+            > .mud-table-cell {
                 border-bottom: none;
             }
         }
@@ -176,7 +175,6 @@
     }
 
     & * .mud-table-root {
-        border-collapse: separate;
 
         .mud-table-head {
             & * .mud-table-cell:first-child {
@@ -203,15 +201,14 @@
     }
 
     & * .mud-table-root {
-        border-collapse: separate;
 
         .mud-table-foot {
-
+            position: sticky;
+            z-index: 2;
+            bottom: 0;
+            
             & * .mud-table-cell {
                 background-color: var(--mud-palette-surface);
-                position: sticky;
-                z-index: 2;
-                bottom: 0;
             }
         }
     }
@@ -331,6 +328,7 @@
     padding-right: 2px;
     padding-inline-end: 2px;
     padding-inline-start: unset;
+    flex-wrap: nowrap;
 
     & .mud-tablepager-left {
         flex-direction: row !important;
@@ -362,6 +360,7 @@
 
     & .mud-select-input {
         margin-top: 0px !important;
+        padding: 0 7px !important;
     }
 
     & .mud-input .mud-input-root {
@@ -393,12 +392,12 @@
     position: relative;
 
     & .mud-table-loading-progress {
-        position: absolute;
         width: 100%;
     }
 }
 
 .mud-table-empty-row {
+    background-color: var(--mud-palette-surface);
     vertical-align: middle;
     text-align: center;
 }
@@ -431,7 +430,7 @@
         }
 
         .mud-table-row {
-            display: initial;
+            display: revert;
 
             .mud-table-cell:last-child {
                 border-bottom: 1px solid var(--mud-palette-table-lines);
@@ -554,9 +553,9 @@
 }
 
 @media (max-width:$breakpoint-xxl) {
-  @include table-display-smalldevices("xl-");
+    @include table-display-smalldevices("xl-");
 }
 
 @media (min-width:$breakpoint-xxl) {
-  @include table-display-smalldevices("xxl-");
+    @include table-display-smalldevices("xxl-");
 }
